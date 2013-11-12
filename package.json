@@ -1,0 +1,15 @@
+{
+  "name": "cloud-storage-example",
+  "version": "0.0.0",
+  "description": "Example application using cloud storage on Modulus.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "Matt Hernandez <matt@modulus.io>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~3.4.4",
+    "formidable": "~1.0.14"
+  }
+}
