@@ -1,4 +1,4 @@
 Cloud Storage Example
 =====================
 
-Example application using cloud storage on Modulus.
+Example image upload application using cloud storage on Modulus.

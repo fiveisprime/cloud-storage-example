@@ -48,6 +48,8 @@ app.get('/files/:uri?', function(req, res) {
     var file = process.env.CLOUD_DIR ? fs.createReadStream(path.resolve(process.env.CLOUD_DIR, req.params.uri))
       : fs.createReadStream(path.resolve(__dirname, req.params.uri));
 
+    res.header('Content-Type', 'image/' + path.extname(req.params.uri).split('.')[1]);
+
     file.pipe(res);
   } else {
     var out = '<p><a href="/">Home</a></p>';

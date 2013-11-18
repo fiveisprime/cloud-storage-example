@@ -1,7 +1,7 @@
 {
   "name": "cloud-storage-example",
   "version": "0.0.0",
-  "description": "Example application using cloud storage on Modulus.",
+  "description": "Example image upload application using cloud storage on Modulus.",
   "main": "index.js",
   "scripts": {
     "start": "node ."
