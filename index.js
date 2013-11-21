@@ -5,6 +5,11 @@ var express     = require('express')
   , app         = express()
   , storedFiles = [];
 
+//
+// Serve the cloud storage contents.
+//
+app.use('/files', express.static(process.env.CLOUD_DIR || __dirname));
+
 app.get('/', function(req, res) {
   res.send([
     '<p><a href="/files">Show Files</a></p>'
@@ -37,29 +42,17 @@ app.post('/', function(req, res, next) {
   });
 });
 
-app.get('/files/:uri?', function(req, res) {
-  if (req.params.uri) {
-    //
-    // Read the file as a stream and pipe the data directly to the response
-    //    which will use less memory.
-    //
+//
+// Show a list of uploaded files.
+//
+app.get('/files', function(req, res) {
+  var out = '<p><a href="/">Home</a></p>';
 
-    // Read from the cloud storage location if the path exists.
-    var file = process.env.CLOUD_DIR ? fs.createReadStream(path.resolve(process.env.CLOUD_DIR, req.params.uri))
-      : fs.createReadStream(path.resolve(__dirname, req.params.uri));
-
-    res.header('Content-Type', 'image/' + path.extname(req.params.uri).split('.')[1]);
-
-    file.pipe(res);
-  } else {
-    var out = '<p><a href="/">Home</a></p>';
-
-    for (var i = 0; i < storedFiles.length; i++) {
-      out += '<p><a href="/files/' + storedFiles[i] + '">' + storedFiles[i] + '</a></p>';
-    }
-
-    res.send(out);
+  for (var i = 0; i < storedFiles.length; i++) {
+    out += '<p><a href="/files/' + storedFiles[i] + '">' + storedFiles[i] + '</a></p>';
   }
+
+  res.send(out);
 });
 
 app.listen(process.env.PORT || 3000);
